@@ -1,0 +1,563 @@
+@import url('https://fonts.googleapis.com/css2?family=Kumbh+Sans:wght@400;700&family=Roboto+Slab:wght@400;700&family=Space+Mono:wght@400;700&display=swap');
+:root {
+    --main-color: #F87070;
+    --first-text-color: #D7E0FF;
+    --second-text-color: #1E213F;
+    --background-color: #161932;
+    --popup-background-color: #ffffff;
+    --popup-input-color: #EFF1FA;
+    --font-family: 'Kumbh Sans', sans-serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body {
+    min-height: 100vh;
+    background-color: var(--second-text-color);
+    font-family: var(--font-family);
+}
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.app-title {
+    font-size: 32px;
+    font-weight: bold;
+    color: var(--first-text-color);
+    margin-top: 48px;
+    margin-bottom: 48px;
+    font-family: 'Kumbh Sans', sans-serif;
+}
+.menu-wrapper {
+    background-color: var(--background-color);
+    padding: 8px;
+    border-radius: 31.5px;
+    margin-bottom: 45px;
+}
+.menu {
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+  overflow: hidden; /* Important for sliding effect */
+  background-color: transparent;
+  height: 48px;
+  width: 360px;
+  border-radius: 26.5px;
+}
+  
+.menu-item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 10px;
+  font-size: 14px;
+  cursor: pointer;
+  flex-grow: 1; /* Important so each item equally fills the menu */
+  text-align: center; /* For aesthetics */
+  font-weight: bold;
+  position: relative;
+  width: 120px;
+  z-index: 1;
+  color: var(--first-text-color);
+  transition: color 0.2s ease-in;
+  text-transform: lowercase;
+  opacity: .4;
+  transition: opacity .1s;
+}
+.menu-item:hover {
+  opacity: 1;
+}
+.menu-item.menu-item-active {
+  opacity: 1;
+}
+  
+.menu-item-bg {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 33.333%; /* Corresponds to one of three items */
+  background-color: var(--main-color);
+  transition: transform 0.3s ease-out;
+  z-index: 0;
+  border-radius: 26.5px;
+}
+
+.menu-item-active {
+  color: var(--second-text-color);
+}
+.timer-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 410px;
+  height: 410px;
+  background: rgb(14,17,42);
+  background: linear-gradient(139deg, rgba(14,17,42,1) 0%, rgba(46,50,90,1) 100%);
+  border-radius: 50%;
+  box-shadow: -20px -20px 90px #2E325A;
+  position: relative;
+}
+
+.inner-timer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 366px;
+  height: 366px;
+  background-color: var(--background-color);
+  border-radius: 50%;
+}
+
+.circle-oval {
+    stroke: var(--main-color);
+}
+
+.timer-text {
+  font-size: 100px;
+  font-weight: bold;
+  color: var(--first-text-color);
+  position: absolute;
+  top: 47%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  display: flex;
+}
+
+.digit-container:last-child {
+  text-align: left;
+  width: 1.2em; /* adjust as needed */
+}
+
+.digit-container:first-child{
+  text-align: right;
+}
+.timer-button {
+  font-size: 16px;
+  text-transform: uppercase;
+  font-weight: bold;
+  color: var(--first-text-color); /* Since this is now a button, use color instead of fill */
+  position: absolute;
+  top: 70%;
+  left: calc(50% + 7.5px);
+  transform: translate(-50%, -50%);
+  cursor: pointer;
+  background: none; /* Optional, if you don't want a background */
+  border: none; /* Optional, if you don't want a border */
+  letter-spacing: 15px;
+  transition: color 0.1s;
+}
+
+.timer-button:hover {
+  color: var(--main-color);
+}
+
+.settings-wrapper {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  margin-bottom: 56px;
+}
+
+.settings-wrapper .settings-icon {
+  cursor: pointer;
+  user-select: none;
+}
+
+.settings-modal-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0,0,0,.5);
+  z-index: 100;
+}
+
+.settings-modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: var(--popup-background-color);
+  border-radius: 25px;
+  width: 540px;
+  display: flex;
+  flex-direction: column;
+}
+
+.settings-modal-header {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: #E3E1E1 1px solid;
+  padding: 34px 40px 32px 40px;
+  align-items: center;
+}
+
+.settings-modal-header h2 {
+  font-size: 28px;
+  font-weight: bold;
+  color: var(--background-color);
+}
+
+.settings-close-icon {
+  cursor: pointer;
+}
+
+.settings-modal-body {
+  padding: 32px 40px 40px 40px;
+}
+
+.minutes-settings-container {
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 24px;
+  border-bottom: 1px solid #E3E1E1;
+}
+
+.minutes-settings-container h3 {
+  font-size: 13px;
+  font-weight: bold;
+  color: var(--background-color);
+  margin-bottom: 22px;
+  text-transform: uppercase;
+  letter-spacing: 5px;
+}
+
+.minutes-settings {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  height: 68px;
+}
+
+.minutes-settings label{
+  font-size: 12px;
+  font-weight: bold;
+  color: var(--second-text-color);
+  margin-bottom: 8px;
+  line-height: 12px;
+}
+
+.minutes-settings input {
+  width: 140px;
+  height: 48px;
+  border: none;
+  border-radius: 10px;
+  background-color: #EFF1FA;
+  color: var(--second-text-color);
+  font-size: 14px;
+  font-weight: bold;
+  padding: 16px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+.minutes-settings input:focus {
+  outline: none;
+}
+.minutes-input-container {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+/* Hide arrows for Chrome, Safari and Opera */
+.minutes-input-container input[type="number"]::-webkit-inner-spin-button,
+.minutes-input-container input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.minutes-input-container svg {
+  position: absolute;
+  left: 112px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.minutes-input-container svg:first-of-type {
+  bottom: 26px;
+}
+
+.minutes-input-container svg:last-of-type {
+  bottom: 14px;
+}
+.font-settings {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 24px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid #E3E1E1;
+}
+
+.font-settings h3 {
+  font-size: 13px;
+  font-weight: bold;
+  color: var(--background-color);
+  text-transform: uppercase;
+  letter-spacing: 5px;
+}
+
+.font-setting {
+  width: 152px;
+  height: 40px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.font-setting button {
+  position: relative;
+  border: none;
+  border-radius: 50%;
+  height: 40px;
+  width: 40px;
+  cursor: pointer;
+  background-color: var(--popup-input-color);
+  color: var(--second-text-color);
+}
+
+.font-setting button::before {
+  content: "";
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  bottom: -5px;
+  left: -5px;
+  border-radius: 50%;
+  border: 3px solid transparent;
+  transition: border-color 0.3s ease;
+}
+
+.font-setting button:hover::before {
+  border-color: #EFF1FA;
+}
+
+.font-setting button.selected {
+  background-color: var(--background-color);
+  color: #ffffff;  
+}
+
+.font-setting button.selected::before {
+  border: 0 solid transparent;
+}
+
+.kumbh {
+  font-family: 'Kumbh Sans', sans-serif;
+}
+
+.roboto {
+  font-family: 'Roboto Slab', serif;
+}
+
+.mono {
+  font-family: 'Space Mono', monospace;
+}
+
+.color-settings {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 24px;
+  padding-bottom: 24px;
+}
+
+.color-settings h3 {
+  font-size: 13px;
+  font-weight: bold;
+  color: var(--background-color);
+  text-transform: uppercase;
+  letter-spacing: 5px;
+}
+
+.color-setting {
+  width: 152px;
+  height: 40px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.color-setting button {
+  position: relative;
+  border: none;
+  border-radius: 50%;
+  height: 40px;
+  width: 40px;
+  cursor: pointer;
+}
+
+.color-setting .orange {
+  background-color: #F87070;
+}
+.color-setting .blue {
+  background-color: #70F3F8;
+}
+
+.color-setting .purple {
+  background-color: #D881F8;
+}
+
+.color-setting button::before {
+  content: "";
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  bottom: -5px;
+  left: -5px;
+  border-radius: 50%;
+  border: 3px solid transparent;
+  transition: border-color 0.3s ease;
+}
+
+.color-setting button:hover::before {
+  border-color: #EFF1FA;
+}
+
+
+.color-setting button.selected::before {
+  border: 0 solid transparent;
+}
+
+.color-setting button svg {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.apply {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: -25px;
+  height: 50px;
+  width: 140px;
+  background-color: var(--main-color);
+  font-size: 16px;
+  font-weight: bold;
+  border: none;
+  border-radius: 26px;
+  color: white;
+  cursor: pointer;
+}
+
+@media (max-width: 800px) {
+  .menu-wrapper {
+    margin-bottom: 110px;
+  }
+}
+
+@media (max-width: 600px) {
+  .app-title {
+    margin-top: 32px;
+    font-size: 24px;
+  }
+  .menu-wrapper {
+    margin-bottom: 48px;
+  }
+  .menu {
+    width: 330px; /* Reduced width for mobile devices */
+  }
+
+  .menu-item {
+    width: 110px; /* Optional: You may also want to reduce the width of the menu items proportionally */
+  }
+  .timer-wrapper {
+    width: 300px;
+    height: 300px;
+  }
+
+  .inner-timer {
+    width: 270px;
+    height: 270px;
+  }
+
+  .timer-text {
+    font-size: 70px;
+  }
+  
+  .settings-modal {
+    width: 327px;
+  }
+  .settings-modal-header{
+    padding: 24px;
+  }
+  
+  .settings-modal-header h2 {
+    font-size: 20px;
+  }
+  
+  .settings-modal-body {
+    padding: 24px;
+  }
+  
+  .minutes-settings-container h3 {
+    font-size: 11px;
+    margin-bottom: 18px;
+    text-align: center;
+  }
+  
+  .minutes-settings {
+    flex-wrap: nowrap;
+    align-items: center;
+    height: auto;
+  }
+  
+  .minutes-settings label{
+    color: var(--second-text-color);
+    opacity: .6;
+  }
+  
+  .minutes-settings input {
+    height: 40px;
+    margin-bottom: 8px;
+  }
+  .minutes-input-container {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+  }
+
+  .minutes-input-container svg {
+    position: absolute;
+    left: auto;
+    right: 16px;
+    cursor: pointer;
+    user-select: none;
+  }
+  
+  .minutes-input-container svg:first-of-type {
+    bottom: 30px;
+  }
+  
+  .minutes-input-container svg:last-of-type {
+    bottom: 17px;
+  }
+  .font-settings {
+    flex-direction: column;
+  }
+  
+  .font-settings h3 {
+    font-size: 11px;
+    margin-bottom: 18px;
+  }
+  
+  .color-settings {
+    flex-direction: column;
+  }
+  
+  .color-settings h3 {
+    font-size: 11px;
+    margin-bottom: 18px;
+  }
+
+}
