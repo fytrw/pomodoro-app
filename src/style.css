@@ -290,6 +290,13 @@ body {
 .minutes-input-container svg:last-of-type {
   bottom: 14px;
 }
+.icon-arrowup path, .icon-arrowdown path {
+  stroke-opacity: .25;
+  transition: stroke-opacity .1s;
+}
+.icon-arrowup:hover path, .icon-arrowdown:hover path {
+  stroke-opacity: 1;
+}
 .font-settings {
   display: flex;
   justify-content: space-between;

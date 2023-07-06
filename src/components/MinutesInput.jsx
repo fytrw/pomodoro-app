@@ -11,8 +11,8 @@ const MinutesInput = ({localTime, setLocalTime, title}) => {
             value={localTime}
             onChange={(e) => setLocalTime(e.target.value)}
             />
-            <IconArrowUp onClick={() => {setLocalTime(Number(localTime) + 1)}}/>
-            <IconArrowDown onClick={() => {setLocalTime(Number(localTime) - 1)}}/>
+            <IconArrowUp className="icon-arrowup"onClick={() => {setLocalTime(Number(localTime) + 1)}}/>
+            <IconArrowDown className="icon-arrowdown" onClick={() => {setLocalTime(Number(localTime) - 1)}}/>
         </div>
     );
 }
